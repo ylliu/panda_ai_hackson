@@ -1,0 +1,129 @@
+
+==================================================
+--- Model Performance Metrics (Training Set) ---
+==================================================
+Training Accuracy Score: 0.6480
+
+Training Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.54      0.70     37404
+           1       0.41      0.98      0.58     12237
+
+    accuracy                           0.65     49641
+   macro avg       0.70      0.76      0.64     49641
+weighted avg       0.84      0.65      0.67     49641
+
+
+==================================================
+--- Model Performance Metrics (Testing Set) ---
+==================================================
+Testing Accuracy Score: 0.7377
+
+Testing Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.92      0.77      0.84     19017
+           1       0.19      0.47      0.27      2258
+
+    accuracy                           0.74     21275
+   macro avg       0.56      0.62      0.56     21275
+weighted avg       0.85      0.74      0.78     21275
+
+
+==================================================
+--- Feature Importance Analysis ---
+==================================================
+Top 5 Feature Importances:
+Open     0.391739
+High     0.255487
+Close    0.188011
+Low      0.164763
+
+[SUCCESS] All model performance metrics have been saved to: model_performance_log.txt
+
+==================================================
+--- Model Performance Metrics (Training Set) ---
+==================================================
+Training Accuracy Score: 0.7190
+
+Training Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.96      0.61      0.75     16811
+           1       0.54      0.94      0.68      8009
+
+    accuracy                           0.72     24820
+   macro avg       0.75      0.78      0.72     24820
+weighted avg       0.82      0.72      0.73     24820
+
+
+==================================================
+--- Model Performance Metrics (Testing Set) ---
+==================================================
+Testing Accuracy Score: 0.7049
+
+Testing Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.79      0.84      0.82      8274
+           1       0.30      0.24      0.27      2364
+
+    accuracy                           0.70     10638
+   macro avg       0.55      0.54      0.54     10638
+weighted avg       0.68      0.70      0.69     10638
+
+
+==================================================
+--- Feature Importance Analysis ---
+==================================================
+Top 5 Feature Importances:
+Low      0.300503
+High     0.238838
+Close    0.231212
+Open     0.229447
+
+[SUCCESS] All model performance metrics have been saved to: model_performance_log.txt
+
+==================================================
+--- Model Performance Metrics (Training Set) ---
+==================================================
+Training Accuracy Score: 0.9069
+
+Training Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.91      0.94      0.93      3044
+           1       0.90      0.85      0.88      1920
+
+    accuracy                           0.91      4964
+   macro avg       0.91      0.90      0.90      4964
+weighted avg       0.91      0.91      0.91      4964
+
+
+==================================================
+--- Model Performance Metrics (Testing Set) ---
+==================================================
+Testing Accuracy Score: 0.5757
+
+Testing Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.61      0.83      0.70      1289
+           1       0.41      0.18      0.26       839
+
+    accuracy                           0.58      2128
+   macro avg       0.51      0.51      0.48      2128
+weighted avg       0.53      0.58      0.53      2128
+
+
+==================================================
+--- Feature Importance Analysis ---
+==================================================
+Top 5 Feature Importances:
+Low      0.263309
+High     0.251212
+Close    0.245475
+Open     0.240003
+
+[SUCCESS] All model performance metrics have been saved to: model_performance_log.txt
