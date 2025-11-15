@@ -73,6 +73,7 @@ class FutureData:
 
         adjust = df['close'].shift() / df['open']
         adjust = np.where(df['symbol'] != df['symbol'].shift(), adjust, 1)
+        adjust[0] = 1
         df['open'] = df['open'] * adjust.cumprod()
         df['close'] = df['close'] * adjust.cumprod()
         df['low'] = df['low'] * adjust.cumprod()
