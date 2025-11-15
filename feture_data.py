@@ -1,3 +1,4 @@
+import numpy as np
 import panda_data
 import pandas as pd
 from tqdm import tqdm
@@ -70,47 +71,17 @@ class FutureData:
         if df.empty:
             return df
 
-        # 保证按日期 + 时间排序
-        df = df.sort_values(["trade_date", "date"]).copy()
-
-        # 按天分组
-        grouped = dict(tuple(df.groupby("trade_date")))
-
-        # 用于记录累计复权因子（乘法形式）
-        cumulative_factor = 1.0
-
-        prev_last_close = None  # 前一天主力最后一分钟价格
-
-        # 存储调整后的结果
-        adjusted_list = []
-
-        # 按日期遍历
-        for trade_date, day_df in grouped.items():
-            day_df = day_df.copy()
-
-            # 获取当天第一分钟的 close
-            first_close = day_df["close"].iloc[0]
-
-            if prev_last_close is not None:
-                # 计算切换因子（若连续则因子接近 1）
-                factor = prev_last_close / first_close
-
-                # 更新累计复权因子
-                cumulative_factor *= factor
-
-            # 记录今天复权前最后一分钟（用于下一天）
-            prev_last_close = day_df["close"].iloc[-1]
-
-            # 应用复权：后复权 = price * cumulative_factor
-            for col in ["open", "high", "low", "close"]:
-                day_df[col] = day_df[col] * cumulative_factor
-
-            adjusted_list.append(day_df)
-
+        adjust = df['close'].shift() / df['open']
+        adjust = np.where(df['symbol'] != df['symbol'].shift(), adjust, 1)
+        df['open'] = df['open'] * adjust.cumprod()
+        df['close'] = df['close'] * adjust.cumprod()
+        df['low'] = df['low'] * adjust.cumprod()
+        df['high'] = df['high'] * adjust.cumprod()
+        # adjust1= pd.DataFrame(adjust)
+        # adjust1.to_csv('adjust.csv')
         # 合并
-        final_df = pd.concat(adjusted_list, ignore_index=True)
-        final_df.to_csv("LC_20230721_20251030_Adjusted.csv", index=False)
-        return final_df
+        df.to_csv("LC_20230721_20251030_Adjusted.csv", index=False)
+        return df
 
     def get_master_future(self):
         pro = ts.pro_api()
