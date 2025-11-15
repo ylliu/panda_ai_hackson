@@ -64,6 +64,9 @@ class EntropyDataProcess:
         threshold = self.calc_entropy_avg_as_threshold()
 
         df = pd.read_csv(self.file_path, parse_dates=['date'])
+        # ========= 按时间升序排序 =========
+        df = df.sort_values(by='date').reset_index(drop=True)
+
         df['return'] = df['close'].pct_change().shift(-1)
         # 对close 去量纲
         df = df.dropna().reset_index(drop=True)
