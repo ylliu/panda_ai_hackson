@@ -116,12 +116,12 @@ class DataProcess:
             class_weight='balanced'  # 处理类别不平衡
         )
 
-        model = RandomForestClassifier(
-            n_estimators=100,
-            criterion='gini',
-            random_state=42,
-            class_weight='balanced'
-        )
+        # model = RandomForestClassifier(
+        #     n_estimators=100,
+        #     criterion='gini',
+        #     random_state=42,
+        #     class_weight='balanced'
+        # )
 
         model.fit(X_train, y_train)
 

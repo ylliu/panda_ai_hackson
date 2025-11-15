@@ -24,13 +24,10 @@ def test_plot_data_distribution():
 
 
 def test_train_model():
+    data_process = DataProcess("LC_20230721_20251030_Adjusted.csv")
     data_process.train_model_RF()
 
 
 def test_get_threshold():
     data_process = DataProcess("LC_20230721_20251030_Adjusted.csv")
     data_process.get_threshold()
-
-
-def test_train_model_rf():
-    assert False
