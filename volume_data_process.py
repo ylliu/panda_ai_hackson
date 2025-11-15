@@ -39,7 +39,8 @@ class VolumeDataProcess:
         """
         # 读取数据
         df = pd.read_csv(self.file_path, parse_dates=['date'])
-
+        # ========= 按时间升序排序 =========
+        df = df.sort_values(by='date').reset_index(drop=True)
         # 初始化变量
         bars = []
         cum_vol = 0
