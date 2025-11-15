@@ -47,8 +47,8 @@ class VolumeDataProcess:
         start_time = df['date'].iloc[0]
 
         for idx, row in df.iterrows():
-            price_open, price_high, price_low, price_close, vol = row['open'], row['high'], row['low'], row['close'], \
-                row['volume']
+            price_open, price_high, price_low, price_close, vol = \
+                row['open'], row['high'], row['low'], row['close'], row['volume']
 
             # 累积成交量
             cum_vol += vol
@@ -58,14 +58,20 @@ class VolumeDataProcess:
 
             # 达到阈值生成Bar
             if cum_vol >= volume_threshold:
+                end_time = row['date']
+                time_delta = (end_time - start_time).total_seconds()
+
                 bars.append({
                     'open': o,
                     'high': h,
                     'low': l,
                     'close': c,
                     'volume': cum_vol,
-                    'start_time': start_time
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'time_delta_sec': time_delta
                 })
+
                 # 重置累计变量
                 cum_vol = 0
                 o, h, l, c = price_open, price_high, price_low, price_close
@@ -73,17 +79,23 @@ class VolumeDataProcess:
 
         # 处理最后一根未满阈值的Bar
         if cum_vol > 0:
+            end_time = df['date'].iloc[-1]
+            time_delta = (end_time - start_time).total_seconds()
+
             bars.append({
                 'open': o,
                 'high': h,
                 'low': l,
                 'close': c,
                 'volume': cum_vol,
-                'start_time': start_time
+                'start_time': start_time,
+                'end_time': end_time,
+                'time_delta_sec': time_delta
             })
 
         volume_bar_df = pd.DataFrame(bars)
         volume_bar_df.to_csv(f"LC_20230721_20251030_volumebar_{volume_threshold}.csv", index=False)
+
         return volume_bar_df
 
     def plot_volume_bars(self, volume_bar_df, title='Volume Bars'):
@@ -192,7 +204,7 @@ class VolumeDataProcess:
         # ====== 选择特征列 ======
         # 根据你的数据结构自行修改，如果你没有其它特征，可先用 price 类特征测试
         feature_cols = [
-            'open', 'high', 'low', 'close',
+            'open', 'high', 'low', 'close', 'time_delta_sec'
         ]
         feature_cols = [c for c in feature_cols if c in df_3min.columns]
 
