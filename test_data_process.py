@@ -19,3 +19,12 @@ def test_plot_data_distribution():
     data_process.plot_data_distribution('pct_change_1')
     data_process.plot_data_distribution('pct_change_2')
     data_process.plot_data_distribution('pct_change_5')
+
+
+def test_train_model():
+    assert False
+
+
+def test_get_threshold():
+    data_process = DataProcess("LC_20230721_20251030_Adjusted.csv")
+    data_process.get_threshold()
