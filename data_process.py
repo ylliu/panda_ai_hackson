@@ -91,7 +91,7 @@ class DataProcess:
         # 根据你的数据结构自行修改，如果你没有其它特征，可先用 price 类特征测试
         feature_cols = [
             'open', 'high', 'low', 'close',
-            'vol', 'amount'
+            'volume',
         ]
         feature_cols = [c for c in feature_cols if c in df_3min.columns]
 
@@ -109,7 +109,7 @@ class DataProcess:
         # ====== 随机森林 ======
         model = RandomForestClassifier(
             n_estimators=300,
-            max_depth=8,
+            max_depth=15,
             min_samples_split=10,
             random_state=42,
             n_jobs=-1
@@ -117,6 +117,10 @@ class DataProcess:
 
         model.fit(X_train, y_train)
 
+        ####
+        y_train_pred = model.predict(X_train)
+        print("🎯 RandomForest Train Accuracy:", accuracy_score(y_train, y_train_pred))
+        print(classification_report(y_train, y_train_pred))
         # ====== 预测 ======
         y_pred = model.predict(X_test)
 
@@ -124,6 +128,10 @@ class DataProcess:
         print("🎯 RandomForest Accuracy:", accuracy_score(y_test, y_pred))
         print("\n📋 Classification Report:")
         print(classification_report(y_test, y_pred))
+        df_con = pd.DataFrame({
+            'Actual': y_test,
+            'Predicted': y_pred
+        })
 
         # ====== 特征重要性 ======
         fi = pd.DataFrame({
