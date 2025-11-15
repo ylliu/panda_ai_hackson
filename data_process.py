@@ -27,7 +27,7 @@ class DataProcess:
             'close': 'last',
             'volume': 'sum'
         }).dropna().reset_index()
-        df_3min.to_csv("LC_20230731_20251030_3min.csv", index=False)
+        df_3min.to_csv("LC_20230721_20251030_3min.csv", index=False)
         return df_3min
 
     def get_3min_pct(self):

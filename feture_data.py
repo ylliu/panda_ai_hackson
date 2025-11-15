@@ -70,7 +70,7 @@ class FutureData:
 
         if df.empty:
             return df
-
+        df = df.sort_values(by='date').reset_index(drop=True)
         adjust = df['close'].shift() / df['open']
         adjust = np.where(df['symbol'] != df['symbol'].shift(), adjust, 1)
         adjust[0] = 1
