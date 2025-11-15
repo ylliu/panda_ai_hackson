@@ -103,7 +103,7 @@ class DataProcess:
 
         # ====== 划分训练 / 测试 ======
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, shuffle=False  # 预测时间序列不打乱
+            X, y, test_size=0.3, shuffle=False  # 预测时间序列不打乱
         )
 
         # ====== 随机森林 ======
@@ -114,6 +114,13 @@ class DataProcess:
             random_state=42,
             n_jobs=-1,
             class_weight='balanced'  # 处理类别不平衡
+        )
+
+        model = RandomForestClassifier(
+            n_estimators=100,
+            criterion='gini',
+            random_state=42,
+            class_weight='balanced'
         )
 
         model.fit(X_train, y_train)
