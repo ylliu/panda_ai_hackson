@@ -77,9 +77,14 @@ class EntropyDataProcess:
             if H >= threshold:
                 print(i)
                 # 达到阈值生成一根 bar
+                start_idx = i - len(temp_window) + 1
+                end_idx = i
                 bar = {
                     'start_index': i - len(temp_window) + 1,
                     'end_index': i,
+                    # === 新增字段：起始时间、结束时间 ===
+                    'start_time': df['date'].iloc[start_idx],
+                    'end_time': df['date'].iloc[end_idx],
                     'open': df['close'].iloc[i - len(temp_window) + 1],
                     'close': df['close'].iloc[i],
                     'high': df['close'].iloc[i - len(temp_window) + 1:i + 1].max(),
