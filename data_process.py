@@ -101,10 +101,19 @@ class DataProcess:
         X = df_3min[feature_cols]
         y = df_3min['label']
 
-        # ====== 划分训练 / 测试 ======
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.3, shuffle=False  # 预测时间序列不打乱
-        )
+        n_samples = len(X)
+        train_size = int(n_samples * 0.7)  # 70% 训练集，30% 测试集
+
+        # 手动划分
+        X_train = X[:train_size]
+        X_test = X[train_size:]
+        y_train = y[:train_size]
+        y_test = y[train_size:]
+
+        # # ====== 划分训练 / 测试 ======
+        # X_train, X_test, y_train, y_test = train_test_split(
+        #     X, y, test_size=0.3, shuffle=False  # 预测时间序列不打乱
+        # )
 
         # ====== 随机森林 ======
         model = RandomForestClassifier(
