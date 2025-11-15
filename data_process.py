@@ -96,7 +96,7 @@ class DataProcess:
         feature_cols = [c for c in feature_cols if c in df_3min.columns]
 
         if not feature_cols:
-            raise ValueError("❌ 没有找到可用特征列，请检查 CSV 中是否包含 open/high/low/close/vol/amount")
+            raise ValueError("❌ 没有找到可用特征列，请检查 CSV 中是否包含 open/high/low/close/volume")
 
         X = df_3min[feature_cols]
         y = df_3min['label']
@@ -112,7 +112,8 @@ class DataProcess:
             max_depth=15,
             min_samples_split=10,
             random_state=42,
-            n_jobs=-1
+            n_jobs=-1,
+            class_weight='balanced'  # 处理类别不平衡
         )
 
         model.fit(X_train, y_train)
